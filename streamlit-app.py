@@ -1,9 +1,6 @@
 import streamlit as st
 import joblib
 import pandas as pd
-import sklearn
-import sys
-import os
 
 model = joblib.load("rf_model.pkl")
 
