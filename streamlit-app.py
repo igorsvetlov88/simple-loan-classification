@@ -4,20 +4,13 @@ import pandas as pd
 import sklearn
 import sys
 import os
-print("Текущая директория:", os.getcwd())
-print("Существует ли rf_model.pkl?", os.path.exists("rf_model.pkl"))
-# ======================
-# Загрузка модели
-# ======================
+
 model = joblib.load("rf_model.pkl")
 
 st.title("Классификатор одобрения кредита")
 
 st.markdown("Введите данные клиента для оценки кредитной заявки")
 
-# ======================
-# Ввод данных
-# ======================
 age = st.number_input("Возраст", min_value=18, max_value=100, value=30)
 
 occupation_status = st.selectbox(
@@ -92,9 +85,6 @@ payment_to_income_ratio = st.number_input(
     "Payment-to-Income Ratio", min_value=0.0, max_value=1.0, value=0.2
 )
 
-# ======================
-# Предсказание
-# ======================
 if st.button("Предсказать"):
     input_data = pd.DataFrame([{
         "age": age,
@@ -121,6 +111,6 @@ if st.button("Предсказать"):
     probability = model.predict_proba(input_data)[0][1]
 
     if prediction == 1:
-        st.success(f"✅ Кредит ОДОБРЕН\n\nВероятность одобрения: {probability:.2%}")
+        st.success(f"Кредит ОДОБРЕН\n\nВероятность одобрения: {probability:.2%}")
     else:
-        st.error(f"❌ Кредит ОТКЛОНЁН\n\nВероятность одобрения: {probability:.2%}")
+        st.error(f"Кредит ОТКЛОНЁН\n\nВероятность одобрения: {probability:.2%}")
